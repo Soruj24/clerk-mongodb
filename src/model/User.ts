@@ -11,6 +11,9 @@ interface IUser extends Document {
     createdAt: Date;
     updatedAt: Date;
     clerkId: string;
+    username: string;
+    firstName: string;
+    lastName: string;
     isValidPassword(password: string): Promise<boolean>; // Method to validate password
 }
 
@@ -21,12 +24,28 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
             required: true,
             unique: true
         },
-        name: {
+        username: {
             type: String,
             required: [true, "Name is required"],
             unique: true,
             trim: true,
             minlength: [3, "Name must be at least 3 characters long"],
+            index: true,
+        },
+        firstName: {
+            type: String,
+            required: [true, "First name is required"],
+            unique: true,
+            trim: true,
+            minlength: [3, "First name must be at least 3 characters long"],
+            index: true,
+        },
+        lastName: {
+            type: String,
+            required: [true, "Last name is required"],
+            unique: true,
+            trim: true,
+            minlength: [3, "Last name must be at least 3 characters long"],
             index: true,
         },
         email: {
